@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export EDITOR="vim"
 export GOPATH=~/go
 
 export PATH="$PATH:$GOPATH/bin"

@@ -1,0 +1,14 @@
+# For managing dependencies
+git@github.com:tpope/vim-pathogen.git pathogen.vim origin/master
+
+# For finding files
+git@github.com:ctrlpvim/ctrlp.vim.git ctrlp.vim origin/master
+
+# For searching for things within files
+git@github.com:mileszs/ack.vim.git ack.vim origin/master
+
+# For managing spacing settings for different filetypes
+git@github.com:editorconfig/editorconfig-vim.git editorconfig.vim origin/master
+
+# Provides useful helpers for working with golang
+git@github.com:fatih/vim-go.git go.vim origin/master
