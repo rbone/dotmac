@@ -1,0 +1,62 @@
+#!/bin/bash
+
+if [ ! -d /Volumes/sec-backup ]; then
+  echo "External drive 'sec-backup' must be inserted. Aborting."
+  exit 1
+fi
+
+function secure_backup() {
+  case "$1" in
+    "create")
+      secure_backup_create $2
+      ;;
+    "restore")
+      secure_backup_restore $2
+      ;;
+    *)
+      secure_backup_help
+      ;;
+  esac
+}
+
+function secure_backup_create() {
+  rm -rf /tmp/mac-secure-backup
+  mkdir /tmp/mac-secure-backup
+
+  cp -r ~/.ssh /tmp/mac-secure-backup/ssh
+  rm -f /tmp/mac-secure-backup/ssh/known_hosts
+
+  echo "Creating encrypted backup. Password will be required."
+  hdiutil create -encryption AES-256 -srcfolder /tmp/mac-secure-backup /tmp/secure-backup.dmg
+
+  cp /tmp/secure-backup.dmg /Volumes/sec-backup/secure-backup.dmg
+  cp /Volumes/sec-backup/secure-backup.dmg "/Volumes/sec-backup/secure-backup-$(stat -f '%c' /Volumes/sec-backup/secure-backup.dmg).dmg"
+  rm /tmp/secure-backup.dmg
+
+  echo ""
+  echo "Done"
+}
+
+function secure_backup_restore() {
+  echo "Mounting backup. Password will be required."
+  hdiutil attach -mountpoint /Volumes/sec-backup-restore -stdinpass /Volumes/sec-backup/secure-backup.dmg
+  mkdir -p ~/.ssh
+  cp -r /Volumes/sec-backup-restore/ssh/* ~/.ssh/.
+  hdiutil detach /Volumes/sec-backup-restore
+
+  echo ""
+  echo "Done"
+}
+
+
+function secure_backup_help() {
+  echo "Usage: mac-secure-backup <subcommand>";
+  echo "";
+  echo "Commands:";
+  echo "    create    - Creates a backup of sensitive data like SSH keys."
+  echo "    restore   - Restores sensitive data from a previous backup."
+  echo "";
+}
+
+secure_backup $@
+
