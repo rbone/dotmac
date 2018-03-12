@@ -45,6 +45,14 @@ function chpwd() {
   export PROMPT="%{$(tput setaf 2)%}[$current_dir]: %{$(tput sgr0)%}";
 }
 
+function mac() {
+  if [ -f $DOTMAC/.bin/mac-$1 ]; then
+    $DOTMAC/.bin/mac-$1 ${@:2}
+  else
+    $DOTMAC/.bin/mac-help
+  fi
+}
+
 # Run external init scripts
 
 cat "$DOTMAC/.init" | while IFS='' read -r script; do

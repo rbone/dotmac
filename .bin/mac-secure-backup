@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Help: Used to create backups for ssh keys to an external volume
+# Help: and also allows it to be restored later.
+
 if [ ! -d /Volumes/sec-backup ]; then
   echo "External drive 'sec-backup' must be inserted. Aborting."
   exit 1
@@ -50,9 +53,10 @@ function secure_backup_restore() {
 
 
 function secure_backup_help() {
-  echo "Usage: mac-secure-backup <subcommand>";
+  echo "Usage: mac secure-backup <subcommand>";
   echo "";
   echo "Commands:";
+  echo ""
   echo "    create    - Creates a backup of sensitive data like SSH keys."
   echo "    restore   - Restores sensitive data from a previous backup."
   echo "";
