@@ -1,12 +1,15 @@
 #!/bin/bash
 
-set -eu
-shopt -s nullglob
-
 VIM_DIR="$DOTMAC/packages/vim"
 
 MAC_CHECKMARK="\\033[32m✔\\033[0m"
 #MAC_CROSS="\\e[31m✗\\e[0m"
+
+function install_vim() {
+  mac_require "brew"
+
+  brew_package "$DOTMAC/packages/vim"
+}
 
 function install_dependencies() {
   update_all_repos
@@ -124,6 +127,7 @@ function dependency_up_to_date() {
   fi
 }
 
+install_vim
 install_dependencies
 install_symlinks
 install_swap
