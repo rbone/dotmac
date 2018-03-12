@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# Help: Installs the specified package, and adds any init script it has to the
+# Help: zsh startup.
+
+# Installs a package. It first checks if the named package is a directory,
+# if it isn't it looks for a matching package name in $DOTVIM/packages.
+#
+# Once it has found a package it checks to ensure there is a relevant
+# install.sh script and runs it. Once it is finished it checks if there is
+# an init.sh script, if so it will add that to the scripts run on terminal
+# start.
+
+function mac_install() {
+  local package_path="$(mac_install_resolve_package $1)"
+
+  if [ -z $package_path ]; then
+    echo "Unable resolve '$1'. Check name and then try again."
+    exit 1
+  fi
+
+  if [ ! -f "$package_path/install.sh" ]; then
+    echo "No install script present in '$package_path'. Aborting."
+    exit 1
+  fi
+
+  echo "--- Installing package ---"
+  source "$package_path/install.sh"
+
+  if mac_install_init_install_required "$package_path"; then
+    echo "Installing init script"
+    echo "$package_path/init.sh" >> "$DOTMAC/.init"
+  fi
+
+  echo "--- Done ---"
+}
+
+function mac_install_resolve_package() {
+  if [ -d "$1" ]; then
+    echo "$1"
+  elif [ -d "$DOTMAC/packages/$1" ]; then
+    echo "$DOTMAC/packages/$1"
+  else
+    echo ""
+  fi
+}
+
+function mac_install_init_install_required() {
+  local package_path=$1
+
+  if [ -f "$package_path/init.sh" ]; then
+    local lines_found="$(grep -c "$package_path/init.sh" "$DOTMAC/.init")"
+
+    if [ "$lines_found" = "0" ]; then
+      return 0
+    fi
+  fi
+
+  return 1
+}
+
+mac_install $@
