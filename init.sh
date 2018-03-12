@@ -1,8 +1,5 @@
 #!/bin/bash
 
-export GOPATH=~/go
-
-export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.bin"
 export PATH="$PATH:$DOTMAC/.bin"
 
