@@ -2,8 +2,14 @@
 
 source /usr/local/share/chruby/chruby.sh
 
-if [ -f "$DOTMAC/packages/ruby/.ruby-version" ]; then
-  local version="$(cat "$DOTMAC/packages/ruby/.ruby-version")"
+function ruby_init() {
+  if [ -f "$DOTMAC/packages/ruby/.ruby-version" ]; then
+    local version="$(cat "$DOTMAC/packages/ruby/.ruby-version")"
 
-  chruby "$version"
-fi
+    chruby "$version"
+  fi
+}
+
+ruby_init
+
+unset -f ruby_init
