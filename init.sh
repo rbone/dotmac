@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export PATH="$PATH:$HOME/.bin"
 export PATH="$PATH:$DOTMAC/.bin"
 
 # Enable command history in zsh

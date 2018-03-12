@@ -1,0 +1,14 @@
+[color]
+  ui = auto
+  branch = auto
+  status = auto
+  diff = auto
+[alias]
+  st = status
+  co = checkout
+[push]
+  default = tracking
+[core]
+  excludesfile = ~/.gitignore
+[url "git@github.com:"]
+  insteadOf = https://github.com/
