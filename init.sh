@@ -15,11 +15,6 @@ export SAVEHIST=10000
 # Necessary to enable the Ctrl+R command to reverse search command history
 bindkey -e
 
-# Ruby config
-
-source /usr/local/share/chruby/chruby.sh
-chruby 2.4
-
 # Configure prompt
 
 function mac_add_prompt_collapse() {
@@ -45,15 +40,28 @@ function chpwd() {
   export PROMPT="%{$(tput setaf 2)%}[$current_dir]: %{$(tput sgr0)%}";
 }
 
+# Simple wrapper to allow calling helper commands in the form `mac <subcommand>`
 function mac() {
   if [ -f $DOTMAC/.bin/mac-$1 ]; then
-    $DOTMAC/.bin/mac-$1 ${@:2}
+    source $DOTMAC/.bin/mac-$1 ${@:2}
   else
-    $DOTMAC/.bin/mac-help
+    source $DOTMAC/.bin/mac-help
   fi
 }
 
-# Run external init scripts
+# Helper to allow other scripts to easily load various other helper scripts
+function mac_require() {
+  local name="$1"
+
+  if [ -f "$DOTMAC/lib/$name.sh" ]; then
+    source "$DOTMAC/lib/$name.sh"
+  else
+    echo "Unknown require '$name'. Aborting."
+    exit 1
+  fi
+}
+
+# Run init scripts
 
 cat "$DOTMAC/.init" | while IFS='' read -r script; do
   source $script
