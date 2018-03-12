@@ -92,7 +92,7 @@ function create_lockfile() {
     name="$(basename "$repo")"
     lock="$lock$name $(current_version "$name")\\n"
   done
-  printf "%b" "$lock" > deps.lock
+  printf "%b" "$lock" > "$VIM_DIR/deps.lock"
 }
 
 function current_version() {
