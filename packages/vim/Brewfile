@@ -1,1 +1,5 @@
+# The editor in question
 brew "vim"
+
+# For fast file searching
+brew "ag"
