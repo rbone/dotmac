@@ -59,10 +59,16 @@ let g:ale_fixers = {
 \   'php': ['phpcbf'],
 \}
 
+" So I don't need to worry about fixing things myself.
 let g:ale_fix_on_save = 1
 
+" use my global one rather than the vendored one as I'm seeing strange
+" behaviour in vendored phpcbf
 let g:ale_php_phpcbf_use_global=1
 
+" Don't use golint as its pedantry over everything having a comment
+" distracts from other issues.
+let g:ale_linters = {'go': ['gofmt', 'go vet']}
 
 " -----------------------------
 "      Configure misc vim
