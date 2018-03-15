@@ -16,12 +16,6 @@ set nocompatible
 "      Configure plugins
 " -----------------------------
 
-" --- pathogen.vim: https://github.com/tpope/vim-pathogen ---
-
-" setup pathogen to run
-runtime bundle/pathogen.vim/autoload/pathogen.vim
-execute pathogen#infect()
-
 " --- ctrlp.vim: https://github.com/ctrlpvim/ctrlp.vim ---
 
 let g:ctrlp_working_path_mode = 'ra'

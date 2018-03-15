@@ -4,6 +4,7 @@ VIM_DIR="$DOTMAC/packages/vim"
 
 MAC_CHECKMARK="\\033[32m✔\\033[0m"
 #MAC_CROSS="\\e[31m✗\\e[0m"
+setopt null_glob
 
 function install_vim() {
   mac_require "brew"
@@ -19,10 +20,10 @@ function install_dependencies() {
     name=$(echo "$line" | cut -d ' ' -f 2)
     version=$(echo "$line" | cut -d ' ' -f 3)
 
-    if [ ! -d "$VIM_DIR/bundle/$name" ]; then
+    if [ ! -d "$VIM_DIR/pack/plugins/start/$name" ]; then
       printf " - %s installing " "$(make_green "$name")"
 
-      output=$(git clone "$repo" "$VIM_DIR/bundle/$name" 2>&1)
+      output=$(git clone "$repo" "$VIM_DIR/pack/plugins/start/$name" 2>&1)
       if [ $? -gt 0 ]; then
         echo ""
         echo "Something went wrong. Output:"
@@ -48,6 +49,9 @@ function install_dependencies() {
 function install_symlinks() {
   printf "Symlinking .vimrc to ~/.vimrc"
   ln -sf "$VIM_DIR/.vimrc" ~/.vimrc
+  printf " %b\\n" "$MAC_CHECKMARK"
+  printf "Symlinking vim to ~/.vim"
+  ln -sf "$VIM_DIR" ~/.vim
   printf " %b\\n\\n" "$MAC_CHECKMARK"
 }
 
@@ -64,7 +68,7 @@ function make_green() {
 function update_all_repos() {
   printf "Fetching latest versions of all installed dependencies"
 
-  for repo in $VIM_DIR/bundle/*; do
+  for repo in $VIM_DIR/pack/plugins/start/*; do
     printf "."
 
     git \
@@ -82,8 +86,8 @@ function checkout_version() {
   local version=$2
 
   git \
-    --git-dir="$VIM_DIR/bundle/$name/.git" \
-    --work-tree="$VIM_DIR/bundle/$name" \
+    --git-dir="$VIM_DIR/pack/plugins/start/$name/.git" \
+    --work-tree="$VIM_DIR/pack/plugins/start/$name" \
     checkout "$version" \
     > /dev/null 2>&1
 }
@@ -95,7 +99,7 @@ function checkout_version() {
 # do change it will be visible.
 function create_lockfile() {
   local lock=""
-  for repo in $VIM_DIR/bundle/*; do
+  for repo in $VIM_DIR/pack/plugins/start/*; do
     name="$(basename "$repo")"
     lock="$lock$name $(current_version "$name")\\n"
   done
@@ -106,8 +110,8 @@ function current_version() {
   local name=$1
 
   (git \
-    --git-dir="$VIM_DIR/bundle/$name/.git" \
-    --work-tree="$VIM_DIR/bundle/$name" \
+    --git-dir="$VIM_DIR/pack/plugins/start/$name/.git" \
+    --work-tree="$VIM_DIR/pack/plugins/start/$name" \
     rev-parse HEAD
   )
 }
@@ -117,8 +121,8 @@ function desired_version()  {
   local version=$2
 
   (git \
-    --git-dir="$VIM_DIR/bundle/$name/.git" \
-    --work-tree="$VIM_DIR/bundle/$name" \
+    --git-dir="$VIM_DIR/pack/plugins/start/$name/.git" \
+    --work-tree="$VIM_DIR/pack/plugins/start/$name" \
     rev-parse "$version"
   )
 }
