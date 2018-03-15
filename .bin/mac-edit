@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Help: Opens the .mac directory in $EDITOR.
+
+function mac_edit() {
+  if [ -z $EDITOR ]; then
+    echo "No edtior set! Please set your editor in the EDITOR env variable and then retry."
+    return 1
+  fi
+
+  cd $DOTMAC
+
+  $EDITOR
+}
+
+mac_edit $@
