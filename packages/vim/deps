@@ -10,5 +10,8 @@ git@github.com:editorconfig/editorconfig-vim.git editorconfig.vim origin/master
 # Provides useful helpers for working with golang
 git@github.com:fatih/vim-go.git go.vim origin/master
 
+# Provides linters for numerous languages
+git@github.com:w0rp/ale.git ale.vim origin/master
+
 # Theme for vim
 git@github.com:nanotech/jellybeans.vim.git jellybeans.vim origin/master

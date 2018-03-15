@@ -53,6 +53,16 @@ let g:ackprg = 'ag --vimgrep'
 " use goimports instead of gofmt for automatically inserting import paths
 let g:go_fmt_command = "goimports"
 
+" --- ale.vim
+
+let g:ale_fixers = {
+\   'php': ['phpcbf'],
+\}
+
+let g:ale_fix_on_save = 1
+
+let g:ale_php_phpcbf_use_global=1
+
 
 " -----------------------------
 "      Configure misc vim
