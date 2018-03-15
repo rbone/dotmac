@@ -21,7 +21,14 @@ function install_dependencies() {
 
     if [ ! -d "$VIM_DIR/bundle/$name" ]; then
       printf " - %s installing " "$(make_green "$name")"
-      git clone "$repo" "$VIM_DIR/bundle/$name" > /dev/null 2>&1
+
+      output=$(git clone "$repo" "$VIM_DIR/bundle/$name" 2>&1)
+      if [ $? -gt 0 ]; then
+        echo ""
+        echo "Something went wrong. Output:"
+        echo "$output"
+        return 1
+      fi
       checkout_version "$name" "$version"
       printf "%b\\n" "$MAC_CHECKMARK"
     elif dependency_up_to_date "$name" "$version"; then
@@ -127,8 +134,8 @@ function dependency_up_to_date() {
   fi
 }
 
-install_vim
-install_dependencies
-install_symlinks
-install_swap
+install_vim &&
+install_dependencies &&
+install_symlinks &&
+install_swap &&
 echo "Finished"

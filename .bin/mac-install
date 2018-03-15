@@ -16,22 +16,23 @@ function mac_install() {
 
   if [ -z $package_path ]; then
     echo "Unable resolve '$1'. Check name and then try again."
-    exit 1
+    return 1
   fi
 
   if [ ! -f "$package_path/install.sh" ]; then
     echo "No install script present in '$package_path'. Aborting."
-    exit 1
+    return 1
   fi
 
   echo "--- Installing package ---"
-  source "$package_path/install.sh"
+  if ! source "$package_path/install.sh"; then
+    return 1
+  fi
 
   if mac_install_init_install_required "$package_path"; then
     echo "Installing init script"
     echo "$package_path/init.sh" >> "$DOTMAC/.init"
   fi
-
   echo "--- Done ---"
 }
 
