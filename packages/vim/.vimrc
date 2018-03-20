@@ -70,6 +70,10 @@ let g:ale_php_phpcbf_use_global=1
 " distracts from other issues.
 let g:ale_linters = {'go': ['gofmt', 'go vet']}
 
+" Ensure the sign gutter always remains open so the window layout doesn't
+" move about constantly when working on a file.
+let g:ale_sign_column_always = 1
+
 " -----------------------------
 "      Configure misc vim
 " -----------------------------
