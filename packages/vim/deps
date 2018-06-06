@@ -15,3 +15,9 @@ git@github.com:w0rp/ale.git ale.vim origin/master
 
 # Theme for vim
 git@github.com:nanotech/jellybeans.vim.git jellybeans.vim origin/master
+
+# Swift syntax highlighting support
+git@github.com:keith/swift.vim.git swift.vim origin/master
+
+# Typescript syntax highlighting support
+git@github.com:leafgarland/typescript-vim.git typescript.vim origin/master
