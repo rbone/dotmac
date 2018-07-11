@@ -50,6 +50,11 @@ let g:ackprg = 'ag --vimgrep'
 
 " --- go.vim: https://github.com/fatih/vim-go
 
+" disable showing a location list when go fmt fails, it only adds
+" clutter and distraction when I already have ale doing linting and
+" error checking
+let g:go_fmt_fail_silently = 1
+
 " use goimports instead of gofmt for automatically inserting import paths
 let g:go_fmt_command = "goimports"
 
