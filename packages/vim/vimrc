@@ -11,6 +11,14 @@ set modelines=0
 " ensure vim is not set to needlessly be compatible with vi
 set nocompatible
 
+filetype plugin indent on
+
+
+" fix for a python3 issue that's causing errors when opening files
+if has('python3')
+  silent! python3 1
+endif
+
 
 " -----------------------------
 "      Configure plugins
@@ -60,9 +68,7 @@ let g:go_fmt_command = "goimports"
 
 " --- ale.vim
 
-let g:ale_fixers = {
-\   'php': ['phpcbf'],
-\}
+"let b:ale_fixers = ['rustfmt']
 
 " So I don't need to worry about fixing things myself.
 let g:ale_fix_on_save = 1
@@ -73,11 +79,16 @@ let g:ale_php_phpcbf_use_global=1
 
 " Don't use golint as its pedantry over everything having a comment
 " distracts from other issues.
-let g:ale_linters = {'go': ['gofmt', 'go vet']}
+let g:ale_linters = {'go': ['gofmt', 'go vet'], 'php': ['phpcbf', 'php-cs-fixer', 'phpcs']}
 
 " Ensure the sign gutter always remains open so the window layout doesn't
 " move about constantly when working on a file.
 let g:ale_sign_column_always = 1
+
+" --- rust.vim: https://github.com/rust-lang/rust.vim
+
+" auto-format rust files on save
+let g:rustfmt_autosave = 1
 
 " -----------------------------
 "      Configure misc vim
