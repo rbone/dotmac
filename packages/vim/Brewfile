@@ -3,7 +3,3 @@ brew "vim"
 
 # For fast file searching
 brew "ag"
-
-# For linting PHP files
-tap "homebrew/php"
-brew "php-code-sniffer"

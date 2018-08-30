@@ -17,5 +17,11 @@ function setup_zshrc() {
   fi
 }
 
+function setup_dotmac() {
+    local mac_home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    touch "$mac_home/.init"
+}
+
+setup_dotmac
 setup_brew
 setup_zshrc

@@ -61,6 +61,12 @@ function install_swap() {
   printf " %b\\n\\n" "$MAC_CHECKMARK"
 }
 
+function install_editorconfig() {
+  printf "Symlinking editorconfig to ~/.editorconfig"
+  ln -sf "$VIM_DIR/editorconfig" ~/.editorconfig
+  printf " %b\\n" "$MAC_CHECKMARK"
+}
+
 function make_green() {
   printf "%b" "\\033[32m$1\\033[0m"
 }
@@ -142,4 +148,5 @@ install_vim &&
 install_dependencies &&
 install_symlinks &&
 install_swap &&
+install_editorconfig &&
 echo "Finished"
