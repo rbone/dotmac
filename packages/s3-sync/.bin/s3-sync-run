@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Running sync, your aws-vault password will be required"
+
+cat "$DOTMAC/packages/s3-sync/syncs.config" | while read line; do
+  local_dir="$(echo "$line" | cut -d ' ' -f 1)"
+  remote_dir="$(echo "$line" |cut -d ' ' -f 2)"
+
+  echo "I'll sync $local_dir to $remote_dir"
+
+  aws-vault exec --session-ttl=4h personal-admin -- aws s3 sync "$local_dir" "s3://$remote_dir"
+done
