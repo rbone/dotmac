@@ -11,13 +11,13 @@ set modelines=0
 " ensure vim is not set to needlessly be compatible with vi
 set nocompatible
 
-filetype plugin indent on
+"filetype plugin indent on
 
 
-" fix for a python3 issue that's causing errors when opening files
-if has('python3')
-  silent! python3 1
-endif
+"" fix for a python3 issue that's causing errors when opening files
+"if has('python3')
+"  silent! python3 1
+"endif
 
 
 " -----------------------------
