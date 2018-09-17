@@ -13,8 +13,6 @@ function ruby_install() {
     if [ $? -ne 0 ]; then
       ruby-install ruby "$version"
     fi
-
-    chruby "$version"
   fi
 }
 
