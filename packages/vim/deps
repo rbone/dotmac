@@ -24,3 +24,6 @@ git@github.com:leafgarland/typescript-vim.git typescript.vim origin/master
 
 # Rust file detection, sytnax highlighting and formatting
 git@github.com:rust-lang/rust.vim.git rust.vim origin/master
+
+# Nerdtree for filesystem browsing
+git@github.com:scrooloose/nerdtree.git nerdtree.vim origin/master
