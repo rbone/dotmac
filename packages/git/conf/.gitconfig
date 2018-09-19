@@ -6,6 +6,7 @@
 [alias]
   st = status
   co = checkout
+  ff = pull --ff-only
 [push]
   default = tracking
 [core]
