@@ -1,0 +1,5 @@
+# Quick Reference For Useful VIM Commands Etc.
+
+## Find Replace
+
+Transform `"key": "value"` -> `key: "value"`: `s/"\(\a\+\)":/\1:/`
