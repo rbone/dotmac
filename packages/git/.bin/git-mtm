@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -ex
+
+echo "Moving code to master"
+git add .
+git stash
+git checkout master
+git ff
+git stash pop
