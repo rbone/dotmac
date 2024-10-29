@@ -90,6 +90,9 @@ let g:ale_sign_column_always = 1
 " auto-format rust files on save
 let g:rustfmt_autosave = 1
 
+" --- nerdtree.vim: https://github.com/scrooloose/nerdtree
+let g:NERDTreeShowHidden = 1
+
 " -----------------------------
 "      Configure misc vim
 " -----------------------------
