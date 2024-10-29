@@ -7,23 +7,27 @@ function git_install() {
 }
 
 function git_install_config() {
-  cp "$DOTMAC/packages/git/conf/.gitconfig" ~/.gitconfig
-  cp "$DOTMAC/packages/git/conf/.gitignore" ~/.gitignore
+  if [ ! -f ~/.gitconfig ]; then
+    cp "$DOTMAC/packages/git/conf/.gitconfig" ~/.gitconfig
+  fi
+  if [ ! -f ~/.gitignore ]; then
+    cp "$DOTMAC/packages/git/conf/.gitignore" ~/.gitignore
+  fi
 }
 
 function git_install_author() {
-  if [ ! -f "$DOTMAC/packages/git/.author_name" ]; then
+  if ! git config list --global | grep -q user.name; then
     echo "Git author name not set. Please provide one!"
     printf "Author Name: "
     read author_name
-    echo "$author_name" > "$DOTMAC/packages/git/.author_name"
+    git config --global user.name "$author_name"
   fi
 
-  if [ ! -f "$DOTMAC/packages/git/.author_email" ]; then
+  if ! git config list --global | grep -q user.email; then
     echo "Git author email not set. Please provide one!"
     printf "Author Email: "
     read author_email
-    echo "$author_email" > "$DOTMAC/packages/git/.author_email"
+    git config --global user.email "$author_email"
   fi
 }
 
