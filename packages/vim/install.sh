@@ -69,6 +69,12 @@ function install_editorconfig() {
   printf " %b\\n" "$MAC_CHECKMARK"
 }
 
+function install_helptags() {
+  printf "Generating helptags for vim"
+  vim -c ":helptags ALL" -c "q"
+  printf " %b\\n" "$MAC_CHECKMARK"
+}
+
 function make_green() {
   printf "%b" "\\033[32m$1\\033[0m"
 }
@@ -151,4 +157,5 @@ install_dependencies &&
 install_symlinks &&
 install_swap &&
 install_editorconfig &&
+install_helptags &&
 echo "Finished"
