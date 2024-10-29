@@ -1,4 +1,4 @@
 #!/bin/bash
 
-export GOPATH=~/go
+export GOPATH="$MAC_HOME/go"
 export PATH="$PATH:$GOPATH/bin"

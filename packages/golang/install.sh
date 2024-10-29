@@ -6,7 +6,8 @@ function golang_install() {
   brew_package "$DOTMAC/packages/golang"
 
   # Hard to live without goimports
-  go get golang.org/x/tools/cmd/goimports
+  mkdir -p "$MAC_HOME/go"
+  GOPATH="$MAC_HOME/go" go install golang.org/x/tools/cmd/goimports@latest
 }
 
 golang_install $@
