@@ -51,7 +51,9 @@ function install_symlinks() {
   ln -sf "$VIM_DIR/.vimrc" ~/.vimrc
   printf " %b\\n" "$MAC_CHECKMARK"
   printf "Symlinking vim to ~/.vim"
-  ln -sf "$VIM_DIR" ~/.vim
+  if [[ ! -h ~/.vim ]]; then
+    ln -sf "$VIM_DIR" ~/.vim
+  fi
   printf " %b\\n\\n" "$MAC_CHECKMARK"
 }
 
